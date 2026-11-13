@@ -1,0 +1,37 @@
+{
+  "name": "deepseek-usage-monitor",
+  "version": "0.3.2",
+  "description": "Live DeepSeek cost and token dashboard for Codex sessions.",
+  "author": {
+    "name": "Local"
+  },
+  "license": "MIT",
+  "keywords": [
+    "DeepSeek",
+    "API usage",
+    "token usage",
+    "cost monitor",
+    "Codex dashboard"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "DeepSeek Usage Monitor",
+    "shortDescription": "Live DeepSeek usage with an animated desktop companion.",
+    "longDescription": "Launch a slim animated desktop companion with a red outline and today's cost badge. Hover to expand live daily, weekly, and monthly DeepSeek usage, with historical pricing, holiday-aware peak periods, fast local aggregation, and detailed daily or monthly history.",
+    "developerName": "Local",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read"
+    ],
+    "defaultPrompt": [
+      "Launch the live DeepSeek usage widget beside my desktop partner",
+      "Show my DeepSeek usage for today, this week, and this month",
+      "Stop or update the DeepSeek usage widget"
+    ],
+    "brandColor": "#10A37F",
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/icon.svg",
+    "screenshots": []
+  }
+}

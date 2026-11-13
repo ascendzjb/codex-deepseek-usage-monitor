@@ -1,0 +1,158 @@
+{
+  "currency": "CNY",
+  "timezone": "Asia/Shanghai",
+  "default_model": "deepseek-flash",
+  "aliases": {
+    "deepseek-v4-flash": "deepseek-flash",
+    "deepseek-v4-flash-vision-exp": "deepseek-flash"
+  },
+  "peak": {
+    "weekdays": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "local_time_ranges": [
+      [
+        "09:00",
+        "12:00"
+      ],
+      [
+        "14:00",
+        "18:00"
+      ]
+    ],
+    "holiday_dates": [
+      "2026-01-01",
+      "2026-01-02",
+      "2026-01-03",
+      "2026-02-15",
+      "2026-02-16",
+      "2026-02-17",
+      "2026-02-18",
+      "2026-02-19",
+      "2026-02-20",
+      "2026-02-21",
+      "2026-02-22",
+      "2026-02-23",
+      "2026-04-04",
+      "2026-04-05",
+      "2026-04-06",
+      "2026-05-01",
+      "2026-05-02",
+      "2026-05-03",
+      "2026-05-04",
+      "2026-05-05",
+      "2026-06-19",
+      "2026-06-20",
+      "2026-06-21",
+      "2026-09-25",
+      "2026-09-26",
+      "2026-09-27",
+      "2026-10-01",
+      "2026-10-02",
+      "2026-10-03",
+      "2026-10-04",
+      "2026-10-05",
+      "2026-10-06",
+      "2026-10-07"
+    ]
+  },
+  "pricing_periods": [
+    {
+      "effective_from": "2026-04-24T00:00:00+08:00",
+      "effective_to": "2026-08-17T00:00:00+08:00",
+      "source": "https://api-docs.deepseek.com/zh-cn/news/news260424",
+      "models": {
+        "deepseek-flash": {
+          "peak": {
+            "cache_hit": 0.2,
+            "cache_miss": 1.0,
+            "output": 2.0
+          },
+          "off_peak": {
+            "cache_hit": 0.2,
+            "cache_miss": 1.0,
+            "output": 2.0
+          }
+        },
+        "deepseek-v4-pro": {
+          "peak": {
+            "cache_hit": 1.0,
+            "cache_miss": 12.0,
+            "output": 24.0
+          },
+          "off_peak": {
+            "cache_hit": 1.0,
+            "cache_miss": 12.0,
+            "output": 24.0
+          }
+        }
+      }
+    },
+    {
+      "effective_from": "2026-08-17T00:00:00+08:00",
+      "effective_to": "2026-09-10T12:00:00+08:00",
+      "source": "https://api-docs.deepseek.com/zh-cn/news/news260813",
+      "models": {
+        "deepseek-flash": {
+          "peak": {
+            "cache_hit": 0.1,
+            "cache_miss": 3.0,
+            "output": 9.0
+          },
+          "off_peak": {
+            "cache_hit": 0.05,
+            "cache_miss": 1.5,
+            "output": 4.5
+          }
+        },
+        "deepseek-v4-pro": {
+          "peak": {
+            "cache_hit": 0.3,
+            "cache_miss": 9.0,
+            "output": 27.0
+          },
+          "off_peak": {
+            "cache_hit": 0.15,
+            "cache_miss": 4.5,
+            "output": 13.5
+          }
+        }
+      }
+    },
+    {
+      "effective_from": "2026-09-10T12:00:00+08:00",
+      "effective_to": null,
+      "source": "https://api-docs.deepseek.com/zh-cn/quick_start/pricing",
+      "models": {
+        "deepseek-flash": {
+          "peak": {
+            "cache_hit": 0.04,
+            "cache_miss": 2.0,
+            "output": 8.0
+          },
+          "off_peak": {
+            "cache_hit": 0.02,
+            "cache_miss": 1.0,
+            "output": 4.0
+          }
+        },
+        "deepseek-v4-pro": {
+          "peak": {
+            "cache_hit": 0.30,
+            "cache_miss": 9.0,
+            "output": 27.0
+          },
+          "off_peak": {
+            "cache_hit": 0.15,
+            "cache_miss": 4.5,
+            "output": 13.5
+          }
+        }
+      }
+    }
+  ]
+}
