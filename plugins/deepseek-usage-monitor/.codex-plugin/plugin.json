@@ -1,33 +1,33 @@
 {
   "name": "deepseek-usage-monitor",
-  "version": "0.3.2",
-  "description": "Live DeepSeek cost and token dashboard for Codex sessions.",
+  "version": "0.3.3",
+  "description": "在 Codex 中实时监控 DeepSeek 费用和 Token 用量。",
   "author": {
-    "name": "Local"
+    "name": "ascendzjb"
   },
   "license": "MIT",
   "keywords": [
-    "DeepSeek",
-    "API usage",
-    "token usage",
-    "cost monitor",
-    "Codex dashboard"
+    "DeepSeek 用量",
+    "Token 统计",
+    "API 消费",
+    "Codex 插件",
+    "悬浮监控"
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "DeepSeek Usage Monitor",
-    "shortDescription": "Live DeepSeek usage with an animated desktop companion.",
-    "longDescription": "Launch a slim animated desktop companion with a red outline and today's cost badge. Hover to expand live daily, weekly, and monthly DeepSeek usage, with historical pricing, holiday-aware peak periods, fast local aggregation, and detailed daily or monthly history.",
-    "developerName": "Local",
+    "displayName": "DeepSeek 用量监控",
+    "shortDescription": "通过动态桌面玩偶实时查看 DeepSeek 用量。",
+    "longDescription": "启动一个带红色边框和今日消费徽章的动态桌面玩偶。鼠标停留可展开今日、本周和本月用量，并支持历史价格、法定节假日峰谷时段、快速本地汇总以及每日和每月明细。",
+    "developerName": "ascendzjb",
     "category": "Productivity",
     "capabilities": [
       "Interactive",
       "Read"
     ],
     "defaultPrompt": [
-      "Launch the live DeepSeek usage widget beside my desktop partner",
-      "Show my DeepSeek usage for today, this week, and this month",
-      "Stop or update the DeepSeek usage widget"
+      "在桌面智能合作伙伴旁启动 DeepSeek 用量悬浮玩偶",
+      "查看我今日、本周和本月的 DeepSeek 用量",
+      "停止或更新 DeepSeek 用量监控"
     ],
     "brandColor": "#10A37F",
     "composerIcon": "./assets/icon.svg",

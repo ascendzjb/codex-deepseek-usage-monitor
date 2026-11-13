@@ -1,4 +1,4 @@
 interface:
-  display_name: "DeepSeek Usage Monitor"
-  short_description: "Live daily, weekly, and monthly DeepSeek usage"
-  default_prompt: "Use $deepseek-usage-monitor to launch the live usage widget beside the desktop partner."
+  display_name: "DeepSeek 用量监控"
+  short_description: "实时查看 DeepSeek 每日、每周和每月用量"
+  default_prompt: "使用 $deepseek-usage-monitor 在桌面智能合作伙伴旁启动用量悬浮玩偶。"

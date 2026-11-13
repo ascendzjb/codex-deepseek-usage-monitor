@@ -1,7 +1,7 @@
 {
   "name": "deepseek-usage-monitor",
   "interface": {
-    "displayName": "DeepSeek Usage Monitor"
+    "displayName": "DeepSeek 用量监控"
   },
   "plugins": [
     {
