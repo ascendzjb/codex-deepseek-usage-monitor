@@ -132,6 +132,35 @@ class Pricing:
         self.signature = hashlib.sha256(
             json.dumps(config, ensure_ascii=False, sort_keys=True).encode("utf-8")
         ).hexdigest()
+        self.config_warnings = self.validate_configuration(
+            datetime.now(tz=self.local_zone)
+        )
+
+    def validate_configuration(self, timestamp: datetime) -> list[str]:
+        warnings: list[str] = []
+        current_year = timestamp.astimezone(self.local_zone).year
+        years = sorted(
+            {
+                int(date_text[:4])
+                for date_text in self.holiday_dates
+                if len(date_text) >= 4 and date_text[:4].isdigit()
+            }
+        )
+        if current_year not in years:
+            covered = f"仅覆盖 {years[-1]} 年" if years else "尚未配置"
+            warnings.append(f"节假日配置{covered}，当前 {current_year} 年峰谷可能不准")
+
+        has_current_period = False
+        for period in self.periods:
+            start = parse_iso(period["effective_from"])
+            end_value = period.get("effective_to")
+            end = parse_iso(end_value) if end_value else None
+            if timestamp >= start and (end is None or timestamp < end):
+                has_current_period = True
+                break
+        if not has_current_period:
+            warnings.append("当前日期没有可用的价格配置")
+        return warnings
 
     def normalize_model(self, model: str | None) -> str:
         if not model:
@@ -283,13 +312,21 @@ def discover_files(start_date: Any) -> list[Path]:
 
 
 def find_7zip() -> str | None:
+    program_files = [
+        os.environ.get("ProgramFiles"),
+        os.environ.get("ProgramFiles(x86)"),
+    ]
     candidates = [
+        os.environ.get("DEEPSEEK_7ZIP_PATH"),
         shutil.which("7z.exe"),
         shutil.which("7z"),
-        r"D:\soft\7-Zip\7z.exe",
-        r"C:\Program Files\7-Zip\7z.exe",
-        r"C:\Program Files (x86)\7-Zip\7z.exe",
+        shutil.which("7zz"),
     ]
+    candidates.extend(
+        str(Path(root) / "7-Zip" / "7z.exe")
+        for root in program_files
+        if root
+    )
     for candidate in candidates:
         if candidate and Path(candidate).is_file():
             return candidate
@@ -776,6 +813,7 @@ def query_snapshot(
         "monthly": [monthly[key] for key in sorted(monthly, reverse=True)],
         "files_scanned": files_scanned,
         "compressed_sessions_skipped": compressed_skipped,
+        "configuration_warnings": pricing.config_warnings,
     }
 
 
@@ -1617,6 +1655,8 @@ class UsageWidget:
 
     def _worker_loop(self) -> None:
         pricing = Pricing(load_json(PRICING_PATH))
+        for warning in pricing.config_warnings:
+            logging.warning("Configuration warning: %s", warning)
         while not self.stop_event.is_set():
             try:
                 files_scanned, compressed_skipped = ingest(pricing)
@@ -1678,6 +1718,9 @@ class UsageWidget:
         seven_days = periods.get("seven_days", {})
         compressed = int(snapshot.get("compressed_sessions_skipped", 0))
         suffix = f" · 跳过 {compressed} 个压缩文件" if compressed else ""
+        config_warnings = snapshot.get("configuration_warnings", [])
+        if config_warnings:
+            suffix += f" · {config_warnings[0]}"
         today = periods.get("today", {})
         unpriced_tokens = max(
             int(periods.get(key, {}).get("unpriced_tokens", 0))
@@ -1692,14 +1735,23 @@ class UsageWidget:
         self.seven_day_label.configure(
             text=f"近7天 {format_money(float(seven_days.get('cost', 0.0)))}"
         )
-        self.footer_label.configure(text=f"Codex 本地记录 · 3秒刷新 · 峰谷按费用{suffix}")
+        footer_text = (
+            f"配置告警：{config_warnings[0]}"
+            if config_warnings
+            else f"Codex 本地记录 · 3秒刷新 · 峰谷按费用{suffix}"
+        )
+        self.footer_label.configure(
+            text=footer_text,
+            fg="#F8C64B" if config_warnings else "#667283",
+        )
         try:
             generated = parse_iso(snapshot["generated_at"]).astimezone()
             self.root.title(f"{APP_NAME} · {generated:%H:%M:%S}")
         except Exception:
             pass
-        self.status_dot.itemconfigure(1, fill="#21D69B")
-        self.ball_canvas.itemconfigure(self.ball_status, fill="#21D69B")
+        status_color = "#F8C64B" if config_warnings else "#21D69B"
+        self.status_dot.itemconfigure(1, fill=status_color)
+        self.ball_canvas.itemconfigure(self.ball_status, fill=status_color)
         if self.details_window is not None and self.details_window.winfo_exists():
             self._render_details()
 

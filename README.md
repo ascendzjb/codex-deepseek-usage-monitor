@@ -6,6 +6,10 @@
   <img src="plugins/deepseek-usage-monitor/assets/icon.svg" alt="DeepSeek 用量监控图标" width="96">
 </p>
 
+![DeepSeek 用量面板](plugins/deepseek-usage-monitor/assets/screenshots/usage-panel.png)
+
+![每日和每月用量明细](plugins/deepseek-usage-monitor/assets/screenshots/usage-details.png)
+
 ## 功能介绍
 
 - 显示带今日消费金额的动态桌面小玩偶。
@@ -29,6 +33,18 @@
 - Python 3.10 或更高版本，并包含 Tkinter
 - 建议安装 7-Zip，用于读取压缩后的 Codex 会话日志
 
+建议安装压缩日志解析依赖：
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+如果没有安装 `zstandard`，插件会依次尝试：
+
+1. 环境变量 `DEEPSEEK_7ZIP_PATH` 指定的 7-Zip 路径
+2. 系统 `PATH` 中的 `7z.exe` 或 `7zz`
+3. `Program Files` 下的标准 7-Zip 安装目录
+
 ## 安装
 
 克隆仓库并添加为本地 Codex 插件市场：
@@ -42,6 +58,12 @@ codex plugin add deepseek-usage-monitor@deepseek-usage-monitor
 ```
 
 安装后请完全退出并重新打开 ChatGPT/Codex 桌面端，以刷新插件列表。
+
+如需读取压缩会话但不使用 7-Zip，可先执行：
+
+```powershell
+python -m pip install -r requirements.txt
+```
 
 ## 使用方法
 

@@ -1,0 +1,2 @@
+# 推荐安装，用于直接读取 Codex 的 .jsonl.zst 压缩会话
+zstandard>=0.23
